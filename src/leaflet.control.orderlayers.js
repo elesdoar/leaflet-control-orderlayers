@@ -2,28 +2,9 @@
  * L.Control.OrderLayers is a control to allow users to switch between different layers on the map.
  */
 
-L.Control.OrderLayers = L.Control.extend({
+L.Control.OrderLayers = L.Control.Layers.extend({
 	options: {
-		collapsed: true,
-		position: 'topright',
-		autoZIndex: true,
 		title: 'Administrador de Capas'
-	},
-
-	initialize: function (baseLayers, overlays, options) {
-		L.setOptions(this, options);
-
-		this._layers = {};
-		this._lastZIndex = 0;
-		this._handlingClick = false;
-
-		for (var i in baseLayers) {
-			this._addLayer(baseLayers[i], i);
-		}
-
-		for (i in overlays) {
-			this._addLayer(overlays[i], i, true);
-		}
 	},
 
 	onAdd: function (map) {
@@ -43,25 +24,6 @@ L.Control.OrderLayers = L.Control.extend({
 		    .off('layeradd', this._onLayerChange)
 		    .off('layerremove', this._onLayerChange)
 			.off('changeorder', this._onLayerChange);
-	},
-
-	addBaseLayer: function (layer, name) {
-		this._addLayer(layer, name);
-		this._update();
-		return this;
-	},
-
-	addOverlay: function (layer, name) {
-		this._addLayer(layer, name, true);
-		this._update();
-		return this;
-	},
-
-	removeLayer: function (layer) {
-		var id = L.stamp(layer);
-		delete this._layers[id];
-		this._update();
-		return this;
 	},
 
 	_initLayout: function () {
@@ -118,21 +80,6 @@ L.Control.OrderLayers = L.Control.extend({
 		container.appendChild(form);
 	},
 
-	_addLayer: function (layer, name, overlay) {
-		var id = L.stamp(layer);
-
-		this._layers[id] = {
-			layer: layer,
-			name: name,
-			overlay: overlay
-		};
-
-		if (this.options.autoZIndex && layer.setZIndex) {
-			this._lastZIndex++;
-			layer.setZIndex(this._lastZIndex);
-		}
-	},
-
 	_update: function () {
 		if (!this._container) {
 			return;
@@ -166,39 +113,6 @@ L.Control.OrderLayers = L.Control.extend({
 		L.DomUtil.create('div', 'clearfix', this._baseLayersList);
 		L.DomUtil.create('div', 'clearfix', this._overlaysList);
 		this._separator.style.display = overlaysPresent && baseLayersPresent ? '' : 'none';
-	},
-
-	_onLayerChange: function (e) {
-		var obj = this._layers[L.stamp(e.layer)];
-
-		if (!obj) { return; }
-
-		if (!this._handlingClick) {
-			this._update();
-		}
-
-		var type = obj.overlay ?
-			(e.type === 'layeradd' ? 'overlayadd' : 'overlayremove') :
-			(e.type === 'layeradd' ? 'baselayerchange' : null);
-
-		if (type) {
-			this._map.fire(type, obj);
-		}
-	},
-
-	// IE7 bugs out if you create a radio dynamically, so you have to do it this hacky way (see http://bit.ly/PqYLBe)
-	_createRadioElement: function (name, checked) {
-
-		var radioHtml = '<input type="radio" class="leaflet-control-layers-selector" name="' + name + '"';
-		if (checked) {
-			radioHtml += ' checked="checked"';
-		}
-		radioHtml += '/>';
-
-		var radioFragment = document.createElement('div');
-		radioFragment.innerHTML = radioHtml;
-
-		return radioFragment.firstChild;
 	},
 
 	_addItem: function (obj) {
@@ -250,28 +164,6 @@ L.Control.OrderLayers = L.Control.extend({
 		return label;
 	},
 
-	_onInputClick: function () {
-		var i, input, obj,
-		    inputs = this._form.getElementsByTagName('input'),
-		    inputsLen = inputs.length;
-
-		this._handlingClick = true;
-
-		for (i = 0; i < inputsLen; i++) {
-			input = inputs[i];
-			obj = this._layers[input.layerId];
-
-			if (input.checked && !this._map.hasLayer(obj.layer)) {
-				this._map.addLayer(obj.layer);
-
-			} else if (!input.checked && this._map.hasLayer(obj.layer)) {
-				this._map.removeLayer(obj.layer);
-			}
-		}
-
-		this._handlingClick = false;
-	},
-	
 	_onUpClick: function(e) {
 		var layerId = e.currentTarget.layerId;
 		var inputs = this._form.getElementsByTagName('input');
@@ -324,14 +216,6 @@ L.Control.OrderLayers = L.Control.extend({
 		}
 	},
 
-	_expand: function () {
-		L.DomUtil.addClass(this._container, 'leaflet-control-layers-expanded');
-	},
-
-	_collapse: function () {
-		this._container.className = this._container.className.replace(' leaflet-control-layers-expanded', '');
-	},
-	
 	hide: function() {
 		this._container.style.display = 'none';
 	},
