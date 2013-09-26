@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "homepage": "http://elesdoar.github.io/leaflet-control-orderlayers/",
   "repository": {
-  	"type": "git",
+    "type": "git",
     "url": "https://github.com/elesdoar/leaflet-control-orderlayers"
   },
   "keywords": [
@@ -20,13 +20,14 @@
     "grunt": "latest",
     "grunt-contrib-uglify": "latest",
     "grunt-contrib-jshint": "latest",
-    "grunt-contrib-copy": "latest",
+    "grunt-contrib-copy": "~0.4.1",
     "grunt-contrib-watch": "latest",
     "grunt-contrib-concat": "latest",
     "grunt-contrib-connect": "latest",
     "grunt-karma": "latest",
     "jasmine-node": "latest",
     "karma": "latest",
-    "karma-ng-scenario": "latest"
+    "karma-ng-scenario": "latest",
+    "grunt-contrib-cssmin": "~0.6.2"
   }
 }

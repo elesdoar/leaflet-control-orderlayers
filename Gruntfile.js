@@ -8,10 +8,30 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'dist/<%= pkg.name %>.min.js': ['src/leaflet.orderlayers.js']
+                    'dist/<%= pkg.name %>.min.js': ['src/leaflet.control.orderlayers.js'],
                 }
             }
         },
+
+		cssmin: {
+			add_banner: {
+				options: {
+					banner:'/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+				},
+				files: {
+					'dist/css/<%= pkg.name %>.min.css':['src/css/*.css']
+				}
+			}
+		},
+		
+		copy: {
+			main: {
+				expand: true,
+				cwd: 'src/',
+				src: '**',
+				dest: 'dist/',
+			},
+		},
 
         jshint: {
             options: {
@@ -36,7 +56,7 @@ module.exports = function(grunt) {
                 }
             },
             source: {
-                src: ['src/leaflet.orderlayers.js']
+                src: ['src/leaflet.control.orderlayers.js']
             },
             tests: {
                 src: ['test/unit/*.js', 'test/e2e/*.js'],
@@ -88,13 +108,15 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-karma');
 
     grunt.registerTask('test:e2e', ['connect:testserver', 'karma:e2e']);
     grunt.registerTask('test', ['karma:unit', 'test:e2e']);
+    grunt.registerTask('release', ['copy', 'uglify', 'cssmin']);
     grunt.registerTask('server', ['connect:server']);
     grunt.registerTask('default', ['karma:background', 'watch']);
-
 };
