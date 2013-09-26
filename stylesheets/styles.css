@@ -851,18 +851,28 @@ section #title .credits.right {
 }
 
 .map {
-	height: 300px;
+	height: 500px;
 	width: 100%;
 	margin: 30px 0;
 }
 
 .leaflet-control-layers {
-	width: 120px;
+	width: 150px;
 	padding: 10px !important;
+}
+
+.leaflet-control-layers-separator {
+	float: left;
+    width: 100%;
 }
 
 .leaflet-control-layers .leaflet-control-layers-title {
 	font-size: 1.2em;
+}
+
+.leaflet-control-layers .leaflet-row {
+	float: left;
+    width: 100%;
 }
 
 .leaflet-control-layers .leaflet-row .leaflet-input {
@@ -872,5 +882,27 @@ section #title .credits.right {
 
 .leaflet-control-layers .leaflet-row .leaflet-name {
 	float: left;
-	width: 85%;
+	width: 60%;
+}
+
+.leaflet-control-layers .leaflet-row .leaflet-up {
+	float: left;
+	background-image: url(../images/arrow-up.png);
+	background-repeat: no-repeat;
+	background-position: center;
+    height: 20px;
+    width: 16px;
+    opacity: 0.75;
+    cursor: pointer;
+}
+
+.leaflet-control-layers .leaflet-row .leaflet-down {
+	float: left;
+	background-image: url(../images/arrow-down.png);
+	background-repeat: no-repeat;
+	background-position: center;
+    height: 20px;
+    width: 16px;
+    opacity: 0.75;
+    cursor: pointer;
 }

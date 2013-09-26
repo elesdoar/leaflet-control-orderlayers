@@ -27,22 +27,43 @@
 				    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
 				    maxZoom: 20
 				}).addTo(map);
+				var b2 = L.tileLayer('http://a.tiles.mapbox.com/v3/elesdoar.map-lfwx2j04/{z}/{x}/{y}.png', {
+				    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+				    maxZoom: 20
+				});
 				var baseLayers = {
-					'Streets': b1
+					'Streets': b1,
+					'Night': b2
 				};
 				
-				var overlayLayers = null;
+				var hillshade =  L.tileLayer.wms("http://129.206.228.72/cached/hillshade", {
+				    layers: 'europe_wms:hs_srtm_europa',
+				    format: 'image/png',
+				    opacity: 0.45,
+				    transparent: true,
+				    attribution: 'Hillshade layer by GIScience http://www.osm-wms.de',
+			        crs: L.CRS.EPSG900913
+				}).addTo(map);
+				
+				var fire = L.tileLayer('http://openfiremap.org/hytiles/{z}/{x}/{y}.png', {
+				    attribution: '© OpenFireMap contributors - © OpenStreetMap contributors',
+        			continuousWorld: true
+				}).addTo(map);
+				
+				var overlayLayers = {
+					'Hillshade': hillshade,
+					'OpenFireMap': fire
+				};
 				
 				var controls = L.control.orderlayers(
 					baseLayers, overlayLayers, 
 					{
 						collapsed: false,
-						title: 'Manager'
+						title: 'Order Layers'
 					}
 				);
         		controls.addTo(map);
-				
-				map.setView([4.649, -74.086], 11);
+				map.setView([42.20133, 2.19110], 11);
 			});
 		</script>
 	</head>
@@ -91,17 +112,46 @@
 
 				<div id="map" class="map"></div>
 				<pre><code>var map = L.map('map');
-var b1 = L.tileLayer('http://a.tiles.mapbox.com/v3/elesdoar.map-856j4yqh/{z}/{x}/{y}.png', {
+var b1 = L.tileLayer('http://a.tiles.mapbox.com/v3/elesdoar.map-key/{z}/{x}/{y}.png', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
     maxZoom: 20
 }).addTo(map);
+
+var b2 = L.tileLayer('http://a.tiles.mapbox.com/v3/elesdoar.map-key/{z}/{x}/{y}.png', {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    maxZoom: 20
+});
 var baseLayers = {
-	'Streets': b1
+	'Streets': b1,
+	'Night': b2
 };
 
-var overlayLayers = null;
+var hillshade =  L.tileLayer.wms("http://129.206.228.72/cached/hillshade", {
+    layers: 'europe_wms:hs_srtm_europa',
+    format: 'image/png',
+    opacity: 0.45,
+    transparent: true,
+    attribution: 'Hillshade layer by GIScience http://www.osm-wms.de',
+    crs: L.CRS.EPSG900913
+}).addTo(map);
 
-var controls = L.control.orderlayers(baseLayers, overlayLayers, {collapsed: false});
+var fire = L.tileLayer('http://openfiremap.org/hytiles/{z}/{x}/{y}.png', {
+    attribution: '© OpenFireMap contributors - © OpenStreetMap contributors',
+	continuousWorld: true
+}).addTo(map);
+
+var overlayLayers = {
+	'Hillshade': hillshade,
+	'OpenFireMap': fire
+};
+
+var controls = L.control.orderlayers(
+	baseLayers, overlayLayers, 
+	{
+		collapsed: false,
+		title: 'Order Layers'
+	}
+);
 controls.addTo(map);
 
 map.setView([4.649, -74.086], 11);</code></pre>
