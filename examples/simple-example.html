@@ -1,0 +1,43 @@
+<html>
+	<head>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+		<script src="../dist/leaflet.control.orderlayers.min.js"></script>
+		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+		<!--[if lte IE 8]>
+		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+		<![endif]-->
+		<script>
+			jQuery(function() {
+				var map = L.map('map').setView([51.505, -0.09], 13);
+				var b1 = L.tileLayer('http://a.tiles.mapbox.com/v3/elesdoar.map-856j4yqh/{z}/{x}/{y}.png', {
+				    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+				    maxZoom: 20
+				}).addTo(map);
+				var baseLayers = {
+					'Streets': b1
+				};
+				
+				var overlayLayers = null;
+				
+				var controls = L.control.layers(baseLayers, overlayLayers, {collapsed: false});
+        		controls.addTo(map);
+				
+				map.setView([4.649, -74.086], 11);
+			});
+		</script>
+		
+		<style type="text/css">
+			body {
+				margin: 0;
+			}
+			#map {
+				height: 180px;
+				width: 600px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="map"></div>
+	</body>
+</html>

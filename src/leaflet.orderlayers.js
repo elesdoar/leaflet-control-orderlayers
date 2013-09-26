@@ -148,17 +148,19 @@ L.Control.OrderLayers = L.Control.extend({
 		var overlaysLayers = [];
 		for (i in this._layers) {
 			obj = this._layers[i];
-			if(!obj.overlay)
+			if(!obj.overlay) {
 				this._addItem(obj);
-			else if(obj.layer.options.zIndex)
+			} else if(obj.layer.options.zIndex) {
 				overlaysLayers[obj.layer.options.zIndex] = obj;
+			}
 			overlaysPresent = overlaysPresent || obj.overlay;
 			baseLayersPresent = baseLayersPresent || !obj.overlay;
 		}
 		
 		for(i = 0; i < overlaysLayers.length; i++) {
-			if(overlaysLayers[i])
+			if(overlaysLayers[i]) {
 				this._addItem(overlaysLayers[i]);
+			}
 		}
 		
 		L.DomUtil.create('div', 'clearfix', this._baseLayersList);
@@ -222,7 +224,7 @@ L.Control.OrderLayers = L.Control.extend({
 		var name = document.createElement('span');
 		name.innerHTML = ' ' + obj.name;
 		
-		var col = L.DomUtil.create('div', 'leaflet-input')
+		var col = L.DomUtil.create('div', 'leaflet-input');
 		col.appendChild(input);
 		row.appendChild(col);
 		col = L.DomUtil.create('div', 'leaflet-name');
@@ -241,8 +243,9 @@ L.Control.OrderLayers = L.Control.extend({
 			L.DomEvent.on(col, 'click', this._onDownClick, this);
 			row.appendChild(col);
 			container = this._overlaysList; 
-		} else
+		} else {
 			container = this._baseLayersList;
+		}
 		container.appendChild(row);
 		return label;
 	},
@@ -274,13 +277,14 @@ L.Control.OrderLayers = L.Control.extend({
 		var inputs = this._form.getElementsByTagName('input');
 		var obj = this._layers[layerId];
 		
-		if(!obj.overlay) 
+		if(!obj.overlay) {
 			return;
+		}
 		
 		var replaceLayer = null;
 		for(var i=0; i < inputs.length; i++) {
 			var auxLayer = this._layers[inputs[i].layerId];
-			if(auxLayer.overlay && (obj.layer.options.zIndex - 1) == auxLayer.layer.options.zIndex) {
+			if(auxLayer.overlay && (obj.layer.options.zIndex - 1) === auxLayer.layer.options.zIndex) {
 				replaceLayer = auxLayer;
 				break;
 			}
@@ -299,13 +303,14 @@ L.Control.OrderLayers = L.Control.extend({
 		var inputs = this._form.getElementsByTagName('input');
 		var obj = this._layers[layerId];
 		
-		if(!obj.overlay) 
+		if(!obj.overlay) {
 			return;
+		}
 		
 		var replaceLayer = null;
 		for(var i=0; i < inputs.length; i++) {
 			var auxLayer = this._layers[inputs[i].layerId];
-			if(auxLayer.overlay && (obj.layer.options.zIndex + 1) == auxLayer.layer.options.zIndex) {
+			if(auxLayer.overlay && (obj.layer.options.zIndex + 1) === auxLayer.layer.options.zIndex) {
 				replaceLayer = auxLayer;
 				break;
 			}
