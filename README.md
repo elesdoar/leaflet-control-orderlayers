@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/elesdoar/leaflet-control-orderlayers.png?branch=master)](https://travis-ci.org/elesdoar/leaflet-control-orderlayers)
+
 Leaflet Control Orderlayers
 ===========================
 
