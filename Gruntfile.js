@@ -80,8 +80,8 @@ module.exports = function(grunt) {
         karma: {
             unit: {
                 configFile: 'config/karma.conf.js',
-                //autoWatch: true
-                //singleRun: false
+                autoWatch: false,
+                singleRun: true
             },
             e2e: {
                 configFile: 'config/karma-e2e.conf.js'
@@ -96,8 +96,8 @@ module.exports = function(grunt) {
         },
         watch: {
             source: {
-                files: ['src/leaflet.orderlayers.js', 'test/unit/*.js', 'test/e2e/*.js'],
-                tasks: [ 'karma:background:run', 'jshint', 'uglify' ]
+                files: ['src/leaflet.control.orderlayers.js', 'src/css/*.css', 'test/unit/*.js', 'test/e2e/*.js'],
+                tasks: [ 'karma:background:run', 'jshint', 'copy', 'uglify', 'cssmin' ]
             },
             grunt: {
                 files: ['Gruntfile.js'],

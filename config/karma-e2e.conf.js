@@ -16,4 +16,4 @@ module.exports = function(karma) {
             suite: 'e2e'
         }
     });
-}
+};

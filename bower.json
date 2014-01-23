@@ -1,0 +1,34 @@
+{
+  "name": "leaflet.control.orderlayers",
+  "description": "leaflet.control.orderlayers - An Leaflet Control easily interact with Leaflet layers",
+  "keywords": [
+    "layers",
+    "leaflet",
+    "cli",
+    "order"
+  ],
+  "main": [
+    "dist/leaflet.control.orderlayers.js",
+    "dist/leaflet.control.orderlayers.min.js"
+  ],
+  "dependencies": {
+    "angular": "1.2.x",
+    "jquery": "2.0.x",
+    "bootstrap": "3.0.x",
+    "angular-route": "1.2.x",
+    "angular-animate": "1.2.x",
+    "angular-mocks": "1.2.x",
+    "leaflet-dist": "0.7.x"
+  },
+  "ignore": [
+    "**/.*",
+    "src",
+    "doc",
+    "examples",
+    "test",
+    "*.md",
+    "Gruntfile.js",
+    "package.json",
+    "bower.json"
+  ]
+}

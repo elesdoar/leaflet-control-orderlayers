@@ -10,6 +10,7 @@
 
 .leaflet-control-layers .leaflet-control-layers-title {
 	font-size: 1.2em;
+	margin: 0;
 }
 
 .leaflet-control-layers .leaflet-row {

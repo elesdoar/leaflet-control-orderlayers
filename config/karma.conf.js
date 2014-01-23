@@ -5,9 +5,9 @@ module.exports = function(karma) {
 
         // list of files / patterns to load in the browser
         files: [
-            'test/lib/leaflet.js',
-            'src/leaflet.orderlayers.js',
-            'test/unit/**/*.js'
+            'bower_components/leaflet-dist/leaflet.js',
+            'dist/leaflet.control.orderlayers.js',
+            'test/unit/*.js'
         ],
 
         // Frameworks
@@ -25,9 +25,9 @@ module.exports = function(karma) {
         // - Safari
         // - PhantomJS
         browsers: [
-            'Firefox'
+            //'Firefox'
             //'Chrome'
-            //'PhantomJS'
+            'PhantomJS'
         ],
 
         // test results reporter to use
@@ -48,7 +48,7 @@ module.exports = function(karma) {
         logLevel: karma.LOG_INFO,
 
         // enable / disable watching file and executing tests whenever any file changes
-        autoWatch: true,
+        autoWatch: false,
 
         // Continuous Integration mode
         // if true, it capture browsers, run tests and exit
