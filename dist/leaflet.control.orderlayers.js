@@ -12,8 +12,8 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 		this._update();
 
 		map
-		    .on('layeradd', this._onLayerChange, this)
-		    .on('layerremove', this._onLayerChange, this)
+	    .on('layeradd', this._onLayerChange, this)
+	    .on('layerremove', this._onLayerChange, this)
 			.on('changeorder', this._onLayerChange, this);
 
 		return this._container;
@@ -21,15 +21,15 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 
 	onRemove: function (map) {
 		map
-		    .off('layeradd', this._onLayerChange)
-		    .off('layerremove', this._onLayerChange)
+	    .off('layeradd', this._onLayerChange)
+	    .off('layerremove', this._onLayerChange)
 			.off('changeorder', this._onLayerChange);
 	},
 
 	_initLayout: function () {
 		var className = 'leaflet-control-layers',
 		    container = this._container = L.DomUtil.create('div', className);
-		
+
 		//Makes this work on IE10 Touch devices by stopping it from firing a mouseout event when the touch is released
 		container.setAttribute('aria-haspopup', true);
 
@@ -45,8 +45,8 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 		if (this.options.collapsed) {
 			if (!L.Browser.android) {
 				L.DomEvent
-				    .on(container, 'mouseover', this._expand, this)
-				    .on(container, 'mouseout', this._collapse, this);
+			    .on(container, 'mouseover', this._expand, this)
+			    .on(container, 'mouseout', this._collapse, this);
 			}
 			var link = this._layersLink = L.DomUtil.create('a', className + '-toggle', container);
 			link.href = '#';
@@ -56,8 +56,7 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 				L.DomEvent
 				    .on(link, 'click', L.DomEvent.stop)
 				    .on(link, 'click', this._expand, this);
-			}
-			else {
+			} else {
 				L.DomEvent.on(link, 'focus', this._expand, this);
 			}
 
@@ -91,7 +90,7 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 		var baseLayersPresent = false,
 		    overlaysPresent = false,
 		    i, obj;
-		
+
 		var overlaysLayers = [];
 		for (i in this._layers) {
 			obj = this._layers[i];
@@ -103,13 +102,13 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 			overlaysPresent = overlaysPresent || obj.overlay;
 			baseLayersPresent = baseLayersPresent || !obj.overlay;
 		}
-		
-		for(i = 0; i < overlaysLayers.length; i++) {
+
+		for(i = overlaysLayers.length-1; i >= 0; i--) {
 			if(overlaysLayers[i]) {
 				this._addItem(overlaysLayers[i]);
 			}
 		}
-		
+
 		L.DomUtil.create('div', 'clearfix', this._baseLayersList);
 		L.DomUtil.create('div', 'clearfix', this._overlaysList);
 		this._separator.style.display = overlaysPresent && baseLayersPresent ? '' : 'none';
@@ -117,7 +116,7 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 
 	_addItem: function (obj) {
 		var row = L.DomUtil.create('div', 'leaflet-row');
-		
+
 		var label = L.DomUtil.create('label', ''),
 		    input,
 		    checked = this._map.hasLayer(obj.layer);
@@ -137,7 +136,7 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 
 		var name = document.createElement('span');
 		name.innerHTML = ' ' + obj.name;
-		
+
 		var col = L.DomUtil.create('div', 'leaflet-input');
 		col.appendChild(input);
 		row.appendChild(col);
@@ -145,7 +144,7 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 		col.appendChild(label);
 		row.appendChild(col);
 		label.appendChild(name);
-		
+
 		var container;
 		if(obj.overlay) {
 			col = L.DomUtil.create('div', 'leaflet-up');
@@ -156,7 +155,7 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 			col.layerId = input.layerId;
 			L.DomEvent.on(col, 'click', this._onDownClick, this);
 			row.appendChild(col);
-			container = this._overlaysList; 
+			container = this._overlaysList;
 		} else {
 			container = this._baseLayersList;
 		}
@@ -164,15 +163,15 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 		return label;
 	},
 
-	_onUpClick: function(e) {
+	_onDownClick: function(e) {
 		var layerId = e.currentTarget.layerId;
 		var inputs = this._form.getElementsByTagName('input');
 		var obj = this._layers[layerId];
-		
+
 		if(!obj.overlay) {
 			return;
 		}
-		
+
 		var replaceLayer = null;
 		for(var i=0; i < inputs.length; i++) {
 			var auxLayer = this._layers[inputs[i].layerId];
@@ -181,7 +180,7 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 				break;
 			}
 		}
-		
+
 		var newZIndex = obj.layer.options.zIndex - 1;
 		if(replaceLayer) {
 			obj.layer.setZIndex(newZIndex);
@@ -189,16 +188,16 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 			this._map.fire('changeorder', obj, this);
 		}
 	},
-	
-	_onDownClick: function(e) {
+
+	_onUpClick: function(e) {
 		var layerId = e.currentTarget.layerId;
 		var inputs = this._form.getElementsByTagName('input');
 		var obj = this._layers[layerId];
-		
+
 		if(!obj.overlay) {
 			return;
 		}
-		
+
 		var replaceLayer = null;
 		for(var i=0; i < inputs.length; i++) {
 			var auxLayer = this._layers[inputs[i].layerId];
@@ -207,7 +206,7 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 				break;
 			}
 		}
-		
+
 		var newZIndex = obj.layer.options.zIndex + 1;
 		if(replaceLayer) {
 			obj.layer.setZIndex(newZIndex);
@@ -219,7 +218,7 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 	hide: function() {
 		this._container.style.display = 'none';
 	},
-	
+
 	show: function() {
 		this._container.style.display = '';
 	}

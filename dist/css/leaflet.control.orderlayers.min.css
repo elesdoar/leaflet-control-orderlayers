@@ -1,3 +1,3 @@
-/*! leaflet.control.orderlayers 23-01-2014 */
+/*! leaflet.control.orderlayers 04-07-2014 */
 
 .leaflet-control-layers{width:150px;padding:10px!important}.leaflet-control-layers-separator{float:left;width:100%}.leaflet-control-layers .leaflet-control-layers-title{font-size:1.2em;margin:0}.leaflet-control-layers .leaflet-row{float:left;width:100%}.leaflet-control-layers .leaflet-row .leaflet-input{float:left;width:15%}.leaflet-control-layers .leaflet-row .leaflet-name{float:left;width:60%}.leaflet-control-layers .leaflet-row .leaflet-up{float:left;background-image:url(../images/arrow-up.png);background-repeat:no-repeat;background-position:center;height:20px;width:16px;opacity:.75;cursor:pointer}.leaflet-control-layers .leaflet-row .leaflet-down{float:left;background-image:url(../images/arrow-down.png);background-repeat:no-repeat;background-position:center;height:20px;width:16px;opacity:.75;cursor:pointer}
