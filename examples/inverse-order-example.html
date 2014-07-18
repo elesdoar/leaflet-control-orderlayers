@@ -45,7 +45,7 @@
 					'OpenFireMap': fire
 				};
 
-				var controls = L.control.orderlayers(baseLayers, overlayLayers, {collapsed: false});
+				var controls = L.control.orderlayers(baseLayers, overlayLayers, {collapsed: false, order: 'qgis'});
         		controls.addTo(map);
 
 				map.setView([4.649, -74.086], 11);

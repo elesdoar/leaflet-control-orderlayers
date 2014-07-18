@@ -4,7 +4,9 @@
 
 L.Control.OrderLayers = L.Control.Layers.extend({
 	options: {
-		title: 'Layer Manager'
+		title: 'Layer Manager',
+		// Values: ['normal', 'qgis']
+		order: 'normal'
 	},
 
 	onAdd: function (map) {
@@ -103,9 +105,17 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 			baseLayersPresent = baseLayersPresent || !obj.overlay;
 		}
 
-		for(i = overlaysLayers.length-1; i >= 0; i--) {
-			if(overlaysLayers[i]) {
-				this._addItem(overlaysLayers[i]);
+		if(this.options.order === 'normal') {
+			for(i = 0; i < overlaysLayers.length; i++) {
+				if(overlaysLayers[i]) {
+					this._addItem(overlaysLayers[i]);
+				}
+			}
+		} else {
+			for(i = overlaysLayers.length-1; i >= 0; i--) {
+				if(overlaysLayers[i]) {
+					this._addItem(overlaysLayers[i]);
+				}
 			}
 		}
 
@@ -148,12 +158,12 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 		var container;
 		if(obj.overlay) {
 			col = L.DomUtil.create('div', 'leaflet-up');
-			L.DomEvent.on(col, 'click', this._onUpClick, this);
+			L.DomEvent.on(col, 'click', (this.options.order === 'normal'? this._onUpClick:this._onDownClick), this);
 			col.layerId = input.layerId;
 			row.appendChild(col);
 			col = L.DomUtil.create('div', 'leaflet-down');
 			col.layerId = input.layerId;
-			L.DomEvent.on(col, 'click', this._onDownClick, this);
+			L.DomEvent.on(col, 'click', (this.options.order === 'normal'? this._onDownClick:this._onUpClick), this);
 			row.appendChild(col);
 			container = this._overlaysList;
 		} else {
@@ -163,7 +173,7 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 		return label;
 	},
 
-	_onDownClick: function(e) {
+	_onUpClick: function(e) {
 		var layerId = e.currentTarget.layerId;
 		var inputs = this._form.getElementsByTagName('input');
 		var obj = this._layers[layerId];
@@ -189,7 +199,7 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 		}
 	},
 
-	_onUpClick: function(e) {
+	_onDownClick: function(e) {
 		var layerId = e.currentTarget.layerId;
 		var inputs = this._form.getElementsByTagName('input');
 		var obj = this._layers[layerId];

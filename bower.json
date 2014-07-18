@@ -8,18 +8,23 @@
     "order"
   ],
   "main": [
+    "dist/css/leaflet.control.orderlayers.css",
+    "dist/css/leaflet.control.orderlayers.min.css",
+    "dist/images/arrow-down.png",
+    "dist/images/arrow-up.png",
     "dist/leaflet.control.orderlayers.js",
     "dist/leaflet.control.orderlayers.min.js"
   ],
   "dependencies": {
     "angular": "1.2.x",
     "jquery": "2.0.x",
-    "bootstrap": "3.0.x",
-    "angular-route": "1.2.x",
-    "angular-animate": "1.2.x",
-    "angular-mocks": "1.2.x",
-    "leaflet-dist": "0.7.x"
+    "leaflet": "0.7.x"
   },
+
+  "devDependencies": {
+    "bootstrap": "3.2.x"
+  },
+
   "ignore": [
     "**/.*",
     "src",

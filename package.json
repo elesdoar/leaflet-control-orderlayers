@@ -2,12 +2,13 @@
   "author": "https://github.com/elesdoar/leaflet-control-orderlayers/graphs/contributors",
   "name": "leaflet.control.orderlayers",
   "description": "leaflet.control.orderlayers - An Leaflet Control easily interact with Leaflet layers",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage": "http://elesdoar.github.io/leaflet-control-orderlayers/",
   "repository": {
     "type": "git",
     "url": "https://github.com/elesdoar/leaflet-control-orderlayers"
   },
+  "main": "dist/",
   "keywords": [
     "layers",
     "leaflet",
@@ -20,7 +21,7 @@
     "grunt": "latest",
     "grunt-contrib-uglify": "latest",
     "grunt-contrib-jshint": "latest",
-    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-copy": "latest",
     "grunt-contrib-watch": "latest",
     "grunt-contrib-concat": "latest",
     "grunt-contrib-connect": "latest",
@@ -28,6 +29,6 @@
     "jasmine-node": "latest",
     "karma": "latest",
     "karma-ng-scenario": "latest",
-    "grunt-contrib-cssmin": "~0.6.2"
+    "grunt-contrib-cssmin": "latest"
   }
 }
