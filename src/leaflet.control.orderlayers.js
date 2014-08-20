@@ -192,15 +192,17 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 		}
 
 		var replaceLayer = null;
+		var idx = this._getZIndex(obj);
 		for(var i=0; i < inputs.length; i++) {
 			var auxLayer = this._layers[inputs[i].layerId];
-			if(auxLayer.overlay && (obj.layer.options.zIndex - 1) === auxLayer.layer.options.zIndex) {
+			var auxIdx = this._getZIndex(auxLayer);
+			if(auxLayer.overlay && (idx - 1) === auxIdx) {
 				replaceLayer = auxLayer;
 				break;
 			}
 		}
 
-		var newZIndex = obj.layer.options.zIndex - 1;
+		var newZIndex = idx - 1;
 		if(replaceLayer) {
 			obj.layer.setZIndex(newZIndex);
 			replaceLayer.layer.setZIndex(newZIndex + 1);
@@ -218,20 +220,36 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 		}
 
 		var replaceLayer = null;
+		var idx = this._getZIndex(obj);
 		for(var i=0; i < inputs.length; i++) {
 			var auxLayer = this._layers[inputs[i].layerId];
-			if(auxLayer.overlay && (obj.layer.options.zIndex + 1) === auxLayer.layer.options.zIndex) {
+			var auxIdx = this._getZIndex(auxLayer);
+			if(auxLayer.overlay && (idx + 1) === auxIdx) {
 				replaceLayer = auxLayer;
 				break;
 			}
 		}
 
-		var newZIndex = obj.layer.options.zIndex + 1;
+		var newZIndex = idx + 1;
 		if(replaceLayer) {
 			obj.layer.setZIndex(newZIndex);
 			replaceLayer.layer.setZIndex(newZIndex - 1);
 			this._map.fire('changeorder', obj, this);
 		}
+	},
+
+	_getZIndex: function(ly) {
+		var zindex = 9999999999;
+		if(ly.layer.options && ly.layer.options.zIndex) {
+			zindex = ly.layer.options.zIndex;
+		} else if(ly.layer.getLayers && ly.layer.eachLayer) {
+			ly.layer.eachLayer(function(lay) {
+				if(lay.options && lay.options.zIndex) {
+					zindex = Math.min(lay.options.zIndex, zindex);
+				}
+			});
+		}
+		return zindex;
 	},
 
 	hide: function() {
