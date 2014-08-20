@@ -6,7 +6,8 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 	options: {
 		title: 'Layer Manager',
 		// Values: ['normal', 'qgis']
-		order: 'normal'
+		order: 'normal',
+		showBaselayers: true
 	},
 
 	onAdd: function (map) {
@@ -98,8 +99,16 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 			obj = this._layers[i];
 			if(!obj.overlay) {
 				this._addItem(obj);
-			} else if(obj.layer.options.zIndex) {
+			} else if(obj.layer.options && obj.layer.options.zIndex) {
 				overlaysLayers[obj.layer.options.zIndex] = obj;
+			} else if(obj.layer.getLayers && obj.layer.eachLayer) {
+				var min = 9999999999;
+				obj.layer.eachLayer(function(ly) {
+					if(ly.options && ly.options.zIndex) {
+						min = Math.min(ly.options.zIndex, min);
+					}
+				});
+				overlaysLayers[min] = obj;
 			}
 			overlaysPresent = overlaysPresent || obj.overlay;
 			baseLayersPresent = baseLayersPresent || !obj.overlay;
