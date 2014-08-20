@@ -150,6 +150,7 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 		}
 
 		input.layerId = L.stamp(obj.layer);
+		input.id = 'lf.'+ input.layerId;
 
 		L.DomEvent.on(input, 'click', this._onInputClick, this);
 
@@ -158,8 +159,10 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 
 		var col = L.DomUtil.create('div', 'leaflet-input');
 		col.appendChild(input);
+		col.appendChild(L.DomUtil.create('div', 'leaflet-icon'));
 		row.appendChild(col);
 		col = L.DomUtil.create('div', 'leaflet-name');
+		label.htmlFor = input.id;
 		col.appendChild(label);
 		row.appendChild(col);
 		label.appendChild(name);
