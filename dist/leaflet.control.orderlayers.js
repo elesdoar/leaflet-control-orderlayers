@@ -159,7 +159,9 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 
 		var col = L.DomUtil.create('div', 'leaflet-input');
 		col.appendChild(input);
-		col.appendChild(L.DomUtil.create('div', 'leaflet-icon'));
+		var icon = L.DomUtil.create('label', 'leaflet-icon');
+		icon.htmlFor = input.id;
+		col.appendChild(icon);
 		row.appendChild(col);
 		col = L.DomUtil.create('div', 'leaflet-name');
 		label.htmlFor = input.id;
