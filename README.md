@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/ReadWriteGeo/leaflet-control-orderlayers.png?branch=master)](https://travis-ci.org/ReadWriteGeo/leaflet-control-orderlayers)
-
 Leaflet Control Orderlayers
 ===========================
 
