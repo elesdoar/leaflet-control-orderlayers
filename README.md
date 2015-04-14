@@ -4,11 +4,6 @@ Leaflet Control Orderlayers
 This plugin for leaflet provide support for order overlay layers in leaflet maps, 
 and for change layers opacity.
 
-for clone this code:
-
-```
-$ git clone https://github.com/ReadWriteGeo/leaflet-control-orderlayers
-```
 ### Quick Use
 
 #### Add javascript files:
