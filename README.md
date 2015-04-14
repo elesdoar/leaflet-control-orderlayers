@@ -47,7 +47,7 @@ $ git clone https://github.com/ReadWriteGeo/leaflet-control-orderlayers
 
 #### Add control:
 
-```body
+```js
   <div id="map" class="map"></div>
 
   <script>
