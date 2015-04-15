@@ -96,7 +96,7 @@ $ git clone https://github.com/elesdoar/leaflet-control-orderlayers.git
       zoomControl: false
     });
 
-    var controls = L.control.orderlayers(baseLayers, overlayLayers, {collapsed: false, title: '', increment: 0.1});
+    var controls = L.control.orderlayers(baseLayers, overlayLayers, {collapsed: false, title: '', opacity: true, increment: 0.1});
     controls.addTo(map);
 
     map.setView([4.649, -74.086], 11);
@@ -115,7 +115,8 @@ $ git clone https://github.com/elesdoar/leaflet-control-orderlayers.git
 
 + **title:** Control title
 + **order:** Order for layers, 'normal': ascending z-index order, 'qgis': descending z-index order, it's like Qgis or ArcMap.
-+ **increment:** Opacity increment
++ **opacity:** Allow opacity control (default: false)
++ **increment:** Opacity increment.
 
 ### Licence
 

@@ -79,7 +79,7 @@
 			zoomControl: false
 		});
 
-		var controls = L.control.orderlayers(baseLayers, overlayLayers, {collapsed: false, title: '', increment: 0.1});
+		var controls = L.control.orderlayers(baseLayers, overlayLayers, {collapsed: false, title: '', opacity: true, increment: 0.1});
 		controls.addTo(map);
 
 		map.setView([4.649, -74.086], 11);
