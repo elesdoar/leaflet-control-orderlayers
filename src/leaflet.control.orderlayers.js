@@ -28,9 +28,9 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 
 	onRemove: function (map) {
 		map
-		.off('layeradd', this._onLayerChange)
-		.off('layerremove', this._onLayerChange)
-		.off('changeorder', this._onLayerChange)
+		.off('layeradd', this._onLayerChange, this)
+		.off('layerremove', this._onLayerChange, this)
+		.off('changeorder', this._onLayerChange, this)
 		.off('changeopacity', this._onLayerChange, this);
 	},
 
