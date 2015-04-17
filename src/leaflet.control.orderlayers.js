@@ -7,8 +7,8 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 	options: {
 		title: 'Layer Manager',
 		order: 'normal',            // Values: ['normal', 'qgis']
-		collapsed: 'true',
-		opacity: false,             // allow opacity control
+		collapsed: true,
+		opacity: true,              // allow opacity control
 		increment: 0.1,
 		showBaselayers: true
 	},
@@ -175,7 +175,7 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 
 		if (this.options.opacity) {
 			var col;
-			var opacity_value = this._getOpacity(obj).lyOp/this._getOpacity(obj).lyN;
+			var opacity_value = Math.abs(this._getOpacity(obj).lyOp/this._getOpacity(obj).lyN);
 
 			col = L.DomUtil.create('span', isNaN(opacity_value)? 'fa fa-ban fa-inverse fa-padding' : 'fa fa-minus-square-o fa-padding');
 			col.title = isNaN(opacity_value)? '':'Lessen Layer Opacity';
@@ -234,14 +234,14 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 		var layerId = e.currentTarget.layerId;
 		var inputs = this._form.getElementsByTagName('input');
 		var obj = this._layers[layerId];
-		var opacity_value = this._getOpacity(obj).lyOp/this._getOpacity(obj).lyN;
+		var opacity_value = Math.abs(this._getOpacity(obj).lyOp/this._getOpacity(obj).lyN);
 		var increment = this.options.increment;
 
 		if (isNaN(opacity_value)) {
 			return;
 		}
 
-		if (this._getOpacity(obj).lyN === 1 ) {
+		if (this._getOpacity(obj).lyN === -1 ) {
 			obj.layer.setOpacity((opacity_value >= 1-increment)? 1 : opacity_value + increment);
 		} else {
 			obj.layer.eachLayer(function (layer) {
@@ -255,14 +255,14 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 		var layerId = e.currentTarget.layerId;
 		var inputs = this._form.getElementsByTagName('input');
 		var obj = this._layers[layerId];
-		var opacity_value = this._getOpacity(obj).lyOp/this._getOpacity(obj).lyN;
+		var opacity_value = Math.abs(this._getOpacity(obj).lyOp/this._getOpacity(obj).lyN);
 		var increment = this.options.increment;
 
 		if (isNaN(opacity_value)) {
 			return;
 		}
 
-		if (this._getOpacity(obj).lyN === 1 ) {
+		if (this._getOpacity(obj).lyN === -1 ) {
 			obj.layer.setOpacity((opacity_value <= 0+increment)? 0 : opacity_value - increment);
 		} else {
 			obj.layer.eachLayer(function (layer) {
@@ -381,7 +381,7 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 			});
 		} else {
 			lyOp = obj.layer.options.opacity;
-			lyN = 1;
+			lyN = -1;
 		}
 		return {
 			lyOp: lyOp,
