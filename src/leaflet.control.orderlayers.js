@@ -10,23 +10,14 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 		showBaselayers: true
 	},
 
-	onAdd: function (map) {
-		this._initLayout();
-		this._update();
-
-		map
-	    .on('layeradd', this._onLayerChange, this)
-	    .on('layerremove', this._onLayerChange, this)
-			.on('changeorder', this._onLayerChange, this);
-
-		return this._container;
+	_addLayer: function (layer, name, overlay) {
+		layer.on('changeorder',this._onLayerChange, this)
+		L.Control.Layers.prototype._addLayer.call(this, layer, name, overlay)
 	},
 
-	onRemove: function (map) {
-		map
-	    .off('layeradd', this._onLayerChange)
-	    .off('layerremove', this._onLayerChange)
-			.off('changeorder', this._onLayerChange);
+	removeLayer: function (layer) {
+		layer.off('changeorder', this._onLayerChange, this);
+		L.Control.Layers.prototype.removeLayer.call(this, layer)
 	},
 
 	_initLayout: function () {

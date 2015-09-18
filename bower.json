@@ -17,7 +17,7 @@
   ],
   "dependencies": {
     "jquery": ">=2.0.x",
-    "leaflet": ">=0.7.x"
+    "leaflet": ">=1.0.x"
   },
 
   "devDependencies": {
