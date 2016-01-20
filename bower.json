@@ -1,6 +1,7 @@
 {
   "name": "leaflet.control.orderlayers",
   "description": "leaflet.control.orderlayers - An Leaflet Control easily interact with Leaflet layers",
+  "version": "1.0.0-beta1",
   "keywords": [
     "layers",
     "leaflet",
