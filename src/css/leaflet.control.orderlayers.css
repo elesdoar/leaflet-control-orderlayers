@@ -1,11 +1,8 @@
 .leaflet-control-layers {
-	width: 150px;
-	padding: 10px !important;
+	font-size: 1.2em;
 }
 
-.leaflet-control-layers-separator {
-	float: left;
-    width: 100%;
+.leaflet-control-layers .leaflet-row {
 }
 
 .leaflet-control-layers .leaflet-control-layers-title {
@@ -13,39 +10,27 @@
 	margin: 0;
 }
 
-.leaflet-control-layers .leaflet-row {
-	float: left;
-    width: 100%;
+.leaflet-control-layers .leaflet-name {
+	margin: 0 0 0 5px;
 }
 
-.leaflet-control-layers .leaflet-row .leaflet-input {
-	float: left;
-	width: 15%;
+.leaflet-control-layers .leaflet-icon{
+	margin: 0 0 0 5px;
 }
 
-.leaflet-control-layers .leaflet-row .leaflet-name {
-	float: left;
-	width: 60%;
+.leaflet-control-layers .leaflet-opacity-value {
 }
 
-.leaflet-control-layers .leaflet-row .leaflet-up {
+.leaflet-control-layers-separator {
 	float: left;
-	background-image: url(../images/arrow-up.png);
-	background-repeat: no-repeat;
-	background-position: center;
-    height: 20px;
-    width: 16px;
-    opacity: 0.75;
-    cursor: pointer;
+	width: 100%;
+	margin: 0px;
 }
 
-.leaflet-control-layers .leaflet-row .leaflet-down {
-	float: left;
-	background-image: url(../images/arrow-down.png);
-	background-repeat: no-repeat;
-	background-position: center;
-    height: 20px;
-    width: 16px;
-    opacity: 0.75;
-    cursor: pointer;
+.fa-padding {
+	padding: 0 10px;
+}
+
+.fa-inverse {
+	color: #D0D0D0;
 }
