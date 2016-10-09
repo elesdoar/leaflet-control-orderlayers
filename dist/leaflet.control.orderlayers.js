@@ -7,12 +7,17 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 		title: 'Layer Manager',
 		// Values: ['normal', 'qgis']
 		order: 'normal',
-		showBaselayers: true
+		showBaselayers: true,
+		draggging: false
 	},
 
 	onAdd: function (map) {
 		this._initLayout();
 		this._update();
+		
+		if(this.options.draggging) {
+			this._addDranAndDrop();
+		}
 
 		map
 	    .on('layeradd', this._onLayerChange, this)
@@ -133,6 +138,20 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 		this._separator.style.display = overlaysPresent && baseLayersPresent ? '' : 'none';
 	},
 
+	_addDranAndDrop: function() {
+		var self=this;
+		Sortable.create(this._overlaysList, {
+		   onMove: function (evt, originalEvent) {
+		   	 var objDragged = self._layers[evt.dragged.layerId];
+		   	 var objRelated = self._layers[evt.related.layerId];
+		     var zIndexDragged  = self._getZIndex(objDragged);
+		     var zIndexRelated  = self._getZIndex(objRelated);
+		     objDragged.layer.setZIndex(zIndexRelated);
+		     objRelated.layer.setZIndex(zIndexDragged);
+		   }
+		});
+	},
+
 	_addItem: function (obj) {
 		var row = L.DomUtil.create('div', 'leaflet-row');
 
@@ -151,6 +170,10 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 
 		input.layerId = L.stamp(obj.layer);
 		input.id = 'lf.'+ input.layerId;
+		
+		if(this.options.draggging) {
+			row.layerId = input.layerId;
+		}
 
 		L.DomEvent.on(input, 'click', this._onInputClick, this);
 
@@ -171,14 +194,16 @@ L.Control.OrderLayers = L.Control.Layers.extend({
 
 		var container;
 		if(obj.overlay) {
-			col = L.DomUtil.create('div', 'leaflet-up');
-			L.DomEvent.on(col, 'click', (this.options.order === 'normal'? this._onUpClick:this._onDownClick), this);
-			col.layerId = input.layerId;
-			row.appendChild(col);
-			col = L.DomUtil.create('div', 'leaflet-down');
-			col.layerId = input.layerId;
-			L.DomEvent.on(col, 'click', (this.options.order === 'normal'? this._onDownClick:this._onUpClick), this);
-			row.appendChild(col);
+			 if(!this.options.draggging) {
+				col = L.DomUtil.create('div', 'leaflet-up');
+				L.DomEvent.on(col, 'click', (this.options.order === 'normal'? this._onUpClick:this._onDownClick), this);
+				col.layerId = input.layerId;
+				row.appendChild(col);
+				col = L.DomUtil.create('div', 'leaflet-down');
+				col.layerId = input.layerId;
+				L.DomEvent.on(col, 'click', (this.options.order === 'normal'? this._onDownClick:this._onUpClick), this);
+				row.appendChild(col);
+			}
 			container = this._overlaysList;
 		} else {
 			container = this._baseLayersList;
