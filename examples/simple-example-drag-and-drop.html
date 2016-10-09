@@ -1,0 +1,46 @@
+<html>
+	<head>
+		<script src="../bower_components/jquery/dist/jquery.js"></script>
+		<script src="../bower_components/leaflet/dist/leaflet-src.js"></script>
+		<script src="../bower_components/Sortable/Sortable.min.js"></script>
+		<script src="../dist/leaflet.control.orderlayers.min.js"></script>
+		<link rel="stylesheet" href="../bower_components/leaflet/dist/leaflet.css" />
+		<link rel="stylesheet" href="../dist/css/leaflet.control.orderlayers.css" />
+		<link rel="stylesheet" href="css/styles.css" />
+		<script>
+			jQuery(function() {
+				var map = L.map('map').setView([4.598056, -74.075833], 13);
+
+				var b1 = L.tileLayer('http://a.tiles.mapbox.com/v3/elesdoar.map-856j4yqh/{z}/{x}/{y}.png', {
+				    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+				    maxZoom: 20
+				}).addTo(map);
+
+				var b2 = L.tileLayer('http://a.tiles.mapbox.com/v3/elesdoar.map-lfwx2j04/{z}/{x}/{y}.png', {
+				    attribution: 'Map data © OpenStreetMap contributors, CC-BY-SA, Imagery © Mapbox',
+				    maxZoom: 20
+				});
+
+				var fire = L.tileLayer('http://openfiremap.org/hytiles/{z}/{x}/{y}.png', {
+				    attribution: '© OpenFireMap contributors - © OpenStreetMap contributors',
+					continuousWorld: true
+				}).addTo(map);
+
+				var overlayLayers = {
+					'OpenFireMap': fire,
+					'Streets': b1,
+					'Night': b2
+				};
+
+				var controls = L.control.orderlayers(null, overlayLayers, {collapsed: false, draggging:true});
+        		controls.addTo(map);
+
+				map.setView([4.649, -74.086], 11);
+			});
+		</script>
+	</head>
+	<body>
+		<div id="map">
+		</div>
+	</body>
+</html>

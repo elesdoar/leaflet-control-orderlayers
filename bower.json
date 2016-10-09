@@ -18,13 +18,12 @@
   ],
   "dependencies": {
     "jquery": ">=2.0.x",
-    "leaflet": ">=0.7.x"
+    "leaflet": "0.7.7",
+    "Sortable": "sortablejs#^1.4.2"
   },
-
   "devDependencies": {
     "bootstrap": "3.2.x"
   },
-
   "ignore": [
     "**/.*",
     "src",
